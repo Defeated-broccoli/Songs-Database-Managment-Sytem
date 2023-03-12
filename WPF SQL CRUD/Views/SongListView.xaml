@@ -1,0 +1,77 @@
+﻿<Page x:Class="WPF_SQL_CRUD.Views.SongListView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WPF_SQL_CRUD.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="900"
+      Title="SongListView">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <Style TargetType="TextBlock" BasedOn="{StaticResource TextBlock}"/>
+            <Style TargetType="Button" BasedOn="{StaticResource Button}"/>
+            <Style TargetType="ScrollViewer" BasedOn="{StaticResource ScrollViewer}"/>
+            <Style TargetType="TextBox" BasedOn="{StaticResource TextBox}"/>
+        </ResourceDictionary>
+    </Page.Resources>
+
+
+    <DockPanel Style="{StaticResource DockPanel}" LastChildFill="True">
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+
+            <CheckBox IsChecked="{Binding CheckBox, Mode=TwoWay}" Margin="10"/>
+            <TextBlock Style="{StaticResource TextBlockUp}" Text="Title" Grid.Column="1"/>
+            <TextBlock Style="{StaticResource TextBlockUp}" Text="Author"  Grid.Column="2"/>
+            <TextBlock Style="{StaticResource TextBlockUp}" Text="Release Date" Grid.Column="3"/>
+        </Grid>
+
+        
+
+        <Grid DockPanel.Dock="bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Button Content="Add" Grid.Column="0" Command="{Binding AddNewSongCommand}"/>
+            <Button Content="Edit Selected" Grid.Column="1" Command="{Binding EditSongCommand}"/>
+            <Button Content="Delete Selected" Grid.Column="2" Command="{Binding DeleteSongCommand}"/>
+
+            <TextBlock Text="Title: " Grid.Row="1"/>
+            <TextBlock Text="Author: " Grid.Row="2"/>
+            <TextBlock Text="Release Date: " Grid.Row="3"/>
+
+            <TextBox Text="{Binding NewTitle, Mode=TwoWay}"  Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
+            <TextBox Text="{Binding NewAuthor}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"/>
+            <TextBox Text="{Binding NewReleaseDate}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"/>
+
+        </Grid>
+
+        <ScrollViewer DockPanel.Dock="Top">
+            <ItemsControl ItemsSource="{Binding Songs}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:SongView/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+    </DockPanel>
+</Page>
